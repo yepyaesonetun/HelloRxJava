@@ -75,6 +75,7 @@ public class StockDataAdapter extends RecyclerView.Adapter<StockDataAdapter.Stoc
             this.date.setText(android.text.format.DateFormat.format("yyyy-MM-dd hh:mm",date));
         }
 
+
         public StockUpdateViewHolder(View itemView) {
             super(itemView);
 
