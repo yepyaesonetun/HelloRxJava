@@ -45,12 +45,22 @@ public class StockDataAdapter extends RecyclerView.Adapter<StockDataAdapter.Stoc
         return data.size();
     }
 
-    public void add(StockUpdate stockSymbol){
-        this.data.add(stockSymbol);
-        notifyItemInserted(data.size() - 1);
+    public void add(StockUpdate newStockUpdate) {
+        for (StockUpdate stockUpdate : data) {
+            if (stockUpdate.getStockSymbol().equals(
+                    (newStockUpdate.getStockSymbol())
+            )) {
+                if (String.valueOf(stockUpdate.getPrice()).equals(newStockUpdate.getPrice())) {
+                    return;
+                }
+                break;
+            }
+        }
+        this.data.add(0, newStockUpdate);
+        notifyItemInserted(0);
     }
 
-    class StockUpdateViewHolder extends RecyclerView.ViewHolder{
+    class StockUpdateViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.stock_item_symbol)
         TextView stockSymbol;
@@ -63,23 +73,23 @@ public class StockDataAdapter extends RecyclerView.Adapter<StockDataAdapter.Stoc
 
         private final NumberFormat PRICE_FORMAT = new DecimalFormat("#0.00");
 
-        public void setStockSymbol(String stockSymbol){
+        public void setStockSymbol(String stockSymbol) {
             this.stockSymbol.setText(stockSymbol);
         }
 
-        public void setPrice(double price){
+        public void setPrice(double price) {
             this.price.setText(PRICE_FORMAT.format(price));
         }
 
-        public void setDate(Date date){
-            this.date.setText(android.text.format.DateFormat.format("yyyy-MM-dd hh:mm",date));
+        public void setDate(Date date) {
+            this.date.setText(android.text.format.DateFormat.format("yyyy-MM-dd hh:mm", date));
         }
 
 
         public StockUpdateViewHolder(View itemView) {
             super(itemView);
 
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 }

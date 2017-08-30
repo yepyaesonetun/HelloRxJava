@@ -1,5 +1,8 @@
 package com.prime.hellorxjava.model;
 
+import com.prime.hellorxjava.YahooService;
+import com.prime.hellorxjava.YahooStockQuote;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -17,6 +20,11 @@ public class StockUpdate implements Serializable {
         this.stockSymbol = stockSymbol;
         this.price = price;
         this.date = date;
+    }
+
+    public static StockUpdate create(YahooStockQuote r){
+        return  new StockUpdate(r.getSymbol(), r.getLastTradePriceOnly(),
+                new Date());
     }
 
     public String getStockSymbol() {
